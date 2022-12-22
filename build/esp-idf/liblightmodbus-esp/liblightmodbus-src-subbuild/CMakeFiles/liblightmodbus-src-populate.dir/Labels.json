@@ -2,37 +2,37 @@
 	"sources" : 
 	[
 		{
-			"file" : "/home/xgampx/Desktop/UNI/TIROCINIO/kprogetto/kminion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/CMakeFiles/liblightmodbus-src-populate"
+			"file" : "/home/maldus/Projects/HSW/demo-cappa-minion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/CMakeFiles/liblightmodbus-src-populate"
 		},
 		{
-			"file" : "/home/xgampx/Desktop/UNI/TIROCINIO/kprogetto/kminion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/CMakeFiles/liblightmodbus-src-populate.rule"
+			"file" : "/home/maldus/Projects/HSW/demo-cappa-minion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/CMakeFiles/liblightmodbus-src-populate.rule"
 		},
 		{
-			"file" : "/home/xgampx/Desktop/UNI/TIROCINIO/kprogetto/kminion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/CMakeFiles/liblightmodbus-src-populate-complete.rule"
+			"file" : "/home/maldus/Projects/HSW/demo-cappa-minion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/CMakeFiles/liblightmodbus-src-populate-complete.rule"
 		},
 		{
-			"file" : "/home/xgampx/Desktop/UNI/TIROCINIO/kprogetto/kminion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-build.rule"
+			"file" : "/home/maldus/Projects/HSW/demo-cappa-minion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-build.rule"
 		},
 		{
-			"file" : "/home/xgampx/Desktop/UNI/TIROCINIO/kprogetto/kminion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-configure.rule"
+			"file" : "/home/maldus/Projects/HSW/demo-cappa-minion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-configure.rule"
 		},
 		{
-			"file" : "/home/xgampx/Desktop/UNI/TIROCINIO/kprogetto/kminion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-download.rule"
+			"file" : "/home/maldus/Projects/HSW/demo-cappa-minion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-download.rule"
 		},
 		{
-			"file" : "/home/xgampx/Desktop/UNI/TIROCINIO/kprogetto/kminion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-install.rule"
+			"file" : "/home/maldus/Projects/HSW/demo-cappa-minion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-install.rule"
 		},
 		{
-			"file" : "/home/xgampx/Desktop/UNI/TIROCINIO/kprogetto/kminion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-mkdir.rule"
+			"file" : "/home/maldus/Projects/HSW/demo-cappa-minion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-mkdir.rule"
 		},
 		{
-			"file" : "/home/xgampx/Desktop/UNI/TIROCINIO/kprogetto/kminion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-patch.rule"
+			"file" : "/home/maldus/Projects/HSW/demo-cappa-minion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-patch.rule"
 		},
 		{
-			"file" : "/home/xgampx/Desktop/UNI/TIROCINIO/kprogetto/kminion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-test.rule"
+			"file" : "/home/maldus/Projects/HSW/demo-cappa-minion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-test.rule"
 		},
 		{
-			"file" : "/home/xgampx/Desktop/UNI/TIROCINIO/kprogetto/kminion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-update.rule"
+			"file" : "/home/maldus/Projects/HSW/demo-cappa-minion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/liblightmodbus-src-populate-prefix/src/liblightmodbus-src-populate-stamp/liblightmodbus-src-populate-update.rule"
 		}
 	],
 	"target" : 
