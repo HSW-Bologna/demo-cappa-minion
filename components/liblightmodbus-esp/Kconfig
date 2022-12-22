@@ -1,0 +1,119 @@
+menu "liblightmodbus"
+   
+   config LIGHTMODBUS_DEBUG
+        bool "Debug utilities"
+        help
+            Enables debugging utilities
+        default n
+    
+    config LIGHTMODBUS_SLAVE
+        bool "Slave module"
+        help
+            Enables the slave module
+        default y
+
+    config LIGHTMODBUS_F01S
+        depends on LIGHTMODBUS_SLAVE
+        bool "Slave function code 1"
+        default y
+
+    config LIGHTMODBUS_F02S
+        depends on LIGHTMODBUS_SLAVE
+        bool "Slave function code 2"
+        default y
+
+    config LIGHTMODBUS_F03S
+        depends on LIGHTMODBUS_SLAVE
+        bool "Slave function code 3"
+        default y
+
+    config LIGHTMODBUS_F04S
+        depends on LIGHTMODBUS_SLAVE
+        bool "Slave function code 4"
+        default y
+
+    config LIGHTMODBUS_F05S
+        depends on LIGHTMODBUS_SLAVE
+        bool "Slave function code 5"
+        default y
+
+    config LIGHTMODBUS_F06S
+        depends on LIGHTMODBUS_SLAVE
+        bool "Slave function code 6"
+        default y
+
+    config LIGHTMODBUS_F15S
+        depends on LIGHTMODBUS_SLAVE
+        bool "Slave function code 15"
+        default y
+
+    config LIGHTMODBUS_F16S
+        depends on LIGHTMODBUS_SLAVE
+        bool "Slave function code 16"
+        default y
+
+    config LIGHTMODBUS_F22S
+        depends on LIGHTMODBUS_SLAVE
+        bool "Slave function code 22"
+        default y
+    
+    config LIGHTMODBUS_MASTER
+        bool "Master module"
+        help
+            This enables the master module
+        default y
+        
+	config LIGHTMODBUS_MASTER_OMIT_REQUEST_CRC
+		depends on LIGHTMODBUS_MASTER
+        bool "Master omit resquest CRC check"
+        help
+            This allows master to skip request CRC check for better performance
+        default n
+
+    config LIGHTMODBUS_F01M
+        depends on LIGHTMODBUS_MASTER
+        bool "Master function code 1"
+        default y
+
+    config LIGHTMODBUS_F02M
+        depends on LIGHTMODBUS_MASTER
+        bool "Master function code 2"
+        default y
+
+    config LIGHTMODBUS_F03M
+        depends on LIGHTMODBUS_MASTER
+        bool "Master function code 3"
+        default y
+
+    config LIGHTMODBUS_F04M
+        depends on LIGHTMODBUS_MASTER
+        bool "Master function code 4"
+        default y
+
+    config LIGHTMODBUS_F05M
+        depends on LIGHTMODBUS_MASTER
+        bool "Master function code 5"
+        default y
+
+    config LIGHTMODBUS_F06M
+        depends on LIGHTMODBUS_MASTER
+        bool "Master function code 6"
+        default y
+
+    config LIGHTMODBUS_F15M
+        depends on LIGHTMODBUS_MASTER
+        bool "Master function code 15"
+        default y
+
+    config LIGHTMODBUS_F16M
+        depends on LIGHTMODBUS_MASTER
+        bool "Master function code 16"
+        default y
+
+    config LIGHTMODBUS_F22M
+        depends on LIGHTMODBUS_MASTER
+        bool "Master function code 22"
+        default y
+
+
+    endmenu
