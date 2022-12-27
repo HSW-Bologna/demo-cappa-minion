@@ -27,7 +27,7 @@
  * using RS485 interface in half duplex mode.
  */
 #define TAG                  "RS485_ECHO_APP"
-#define ECHO_TASK_STACK_SIZE (2048)
+#define ECHO_TASK_STACK_SIZE (2048+1024)
 #define ECHO_TASK_PRIO       (10)
 
 void app_main(void) {

@@ -130,7 +130,7 @@ ModbusError myRegisterCallback(const ModbusSlave *status, const ModbusRegisterCa
             // ESP_LOGI(TAG, "Writing %d\n", args->value);
             switch (args->type) {
                 case MODBUS_HOLDING_REGISTER:
-                    phase_cut_set_percentage(args->value);
+                    phase_cut_set_percentage(args->index, args->value);
                     break;
                 case MODBUS_COIL:
                     break;
@@ -199,10 +199,10 @@ void echo_task_minion(void *arg) {
     // Set read timeout of UART TOUT feature
     // ESP_ERROR_CHECK(uart_set_rx_timeout(uart_num, ECHO_READ_TOUT));
 
-   /* for (int i = 1; i <= 10; i++) {
-        phase_cut_set_percentage(i * 10);
-        vTaskDelay(pdMS_TO_TICKS(5000));
-    }*/
+    /* for (int i = 1; i <= 10; i++) {
+         phase_cut_set_percentage(i * 10);
+         vTaskDelay(pdMS_TO_TICKS(5000));
+     }*/
 
     // Allocate buffers for UART
     uint8_t *data = (uint8_t *)malloc(BUF_SIZE);

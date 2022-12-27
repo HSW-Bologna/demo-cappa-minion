@@ -8,17 +8,21 @@
 #include <stdbool.h>
 #include <sys/_stdint.h>
 
-#define HAP_SOFF GPIO_NUM_26
-#define HAP_ASP  GPIO_NUM_25
-#define HAP_INT0 GPIO_NUM_35
+#define HAP_MOTORE_1 GPIO_NUM_26
+#define HAP_MOTORE_2 GPIO_NUM_25
+#define HAP_MOTORE_3 GPIO_NUM_12
+#define HAP_INT0     GPIO_NUM_35
+
+#define NUM_FANS 3
 
 static void zcross_isr_handler(void *arg);
 
-static volatile uint32_t period  = 0;
-static volatile uint32_t counter = 0;
-static volatile size_t   triac   = 0;
-static uint8_t           full    = 0;
-static uint8_t           off     = 0;
+static volatile uint32_t period[NUM_FANS]  = {0};
+static volatile uint32_t counter[NUM_FANS] = {0};
+static volatile size_t   triac[NUM_FANS]   = {0};
+static uint8_t           full[NUM_FANS]    = {0};
+static uint8_t           off[NUM_FANS]     = {0};
+static gpio_num_t        gpios[NUM_FANS]   = {HAP_MOTORE_1, HAP_MOTORE_2, HAP_MOTORE_3};
 
 static const char *TAG = "Phase cut";
 
@@ -30,7 +34,7 @@ static const char *TAG = "Phase cut";
 #define PHASE_HALFPERIOD    TIMER_USECS(10000)
 
 #define MAX_PERIOD 9500UL
-#define MIN_PERIOD 500UL
+#define MIN_PERIOD 1900UL
 
 static const uint16_t sine_percentage_linearization[100] = {
     9999, 9361, 9095, 8890, 8716, 8563, 8423, 8294, 8173, 8058, 7950, 7846, 7746, 7650, 7556, 7466, 7378,
@@ -44,22 +48,24 @@ static const uint16_t sine_percentage_linearization[100] = {
 static bool timer_phasecut_callback(void *args) {
     (void)args;
 
-    if (triac > 0) {
-        triac--;
-        if (triac == 0) {
-            gpio_set_level(HAP_SOFF, 0);
+    for (size_t i = 0; i < NUM_FANS; i++) {
+        if (triac[i] > 0) {
+            triac[i]--;
+            if (triac[i] == 0) {
+                gpio_set_level(gpios[i], 0);
+            }
         }
-    }
 
-    if (counter > 0) {
-        if (counter > 100) {
-            counter -= 100;
-        } else {
-            counter = 0;
-        }
-        if (counter == 0 && !off) {
-            gpio_set_level(HAP_SOFF, 1);
-            triac = 5;
+        if (counter[i] > 0) {
+            if (counter[i] > 100) {
+                counter[i] -= 100;
+            } else {
+                counter[i] = 0;
+            }
+            if (counter[i] == 0 && !off[i]) {
+                gpio_set_level(gpios[i], 1);
+                triac[i] = 5;
+            }
         }
     }
 
@@ -112,7 +118,7 @@ void phase_cut_init(void) {
         // interrupt of falling edge
         .intr_type = GPIO_INTR_DISABLE,
         // bit mask of the pins
-        .pin_bit_mask = BIT64(HAP_SOFF) | BIT64(HAP_ASP),
+        .pin_bit_mask = BIT64(HAP_MOTORE_1) | BIT64(HAP_MOTORE_2) | BIT64(HAP_MOTORE_3),
         // set as input mode
         .mode         = GPIO_MODE_OUTPUT,
         .pull_up_en   = 0,
@@ -126,30 +132,42 @@ void phase_cut_init(void) {
     ESP_ERROR_CHECK(gpio_isr_handler_add(HAP_INT0, zcross_isr_handler, NULL));
 }
 
-void phase_cut_set_percentage(unsigned int perc) {
-    if (perc >= 100) {
-        perc = 100;
-        full = 1;
-        off  = 0;
-        ESP_ERROR_CHECK(gpio_set_level(HAP_SOFF, 1));
-    } else if (perc == 0) {
-        full = 0;
-        off  = 1;
-    } else {
-        full   = 0;
-        off    = 0;
-        period = sine_percentage_linearization[perc - 1];
+void phase_cut_set_percentage(uint16_t fan, unsigned int perc) {
+    if (fan >= NUM_FANS) {
+        return;
     }
 
-    ESP_LOGI(TAG, "%i %i %i", perc, off, full);
+    if (perc >= 100) {
+        perc      = 100;
+        full[fan] = 1;
+        off[fan]  = 0;
+        ESP_ERROR_CHECK(gpio_set_level(gpios[fan], 1));
+    } else if (perc == 0) {
+        full[fan] = 0;
+        off[fan]  = 1;
+    } else {
+        full[fan]   = 0;
+        off[fan]    = 0;
+        period[fan] = sine_percentage_linearization[perc - 1];
+
+        if (period[fan] > MAX_PERIOD) {
+            period[fan] = MAX_PERIOD;
+        } else if (period[fan] < MIN_PERIOD) {
+            period[fan] = MIN_PERIOD;
+        }
+    }
+
+    ESP_LOGI(TAG, "fan %i: %i%% %i %i", fan, perc, off[fan], full[fan]);
 }
 
 static void zcross_isr_handler(void *arg) {
-    if (off) {
-        ESP_ERROR_CHECK(gpio_set_level(HAP_SOFF, 0));
-    } else if (full) {
-        ESP_ERROR_CHECK(gpio_set_level(HAP_SOFF, 1));
+    for (size_t i = 0; i < NUM_FANS; i++) {
+        if (off[i]) {
+            ESP_ERROR_CHECK(gpio_set_level(gpios[i], 0));
+        } else if (full[i]) {
+            ESP_ERROR_CHECK(gpio_set_level(gpios[i], 1));
+        }
+
+        counter[i] = period[i];
     }
-    
-    counter = period;
 }

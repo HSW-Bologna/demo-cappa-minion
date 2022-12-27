@@ -1,3 +1,0 @@
-/home/maldus/Projects/HSW/demo-cappa-minion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/CMakeFiles/rebuild_cache.dir
-/home/maldus/Projects/HSW/demo-cappa-minion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/CMakeFiles/edit_cache.dir
-/home/maldus/Projects/HSW/demo-cappa-minion/build/esp-idf/liblightmodbus-esp/liblightmodbus-src-subbuild/CMakeFiles/liblightmodbus-src-populate.dir
