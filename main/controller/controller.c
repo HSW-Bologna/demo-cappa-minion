@@ -4,7 +4,7 @@
 
 
 void controller_init(model_t *pmodel) {
-    view_change_page(pmodel, &page_main);
+    // view_change_page(pmodel, &page_main);
 }
 
 

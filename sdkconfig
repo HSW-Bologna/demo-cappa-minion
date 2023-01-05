@@ -1233,11 +1233,68 @@ CONFIG_ECHO_UART_RTS=18
 # end of Echo RS485 Example Configuration
 
 #
+# I2C library
+#
+
+#
+# Temperature sensors
+#
+# CONFIG_I2C_DEVICES_MS5837 is not set
+# CONFIG_I2C_DEVICES_SHT21 is not set
+# CONFIG_I2C_DEVICES_SHT3 is not set
+# CONFIG_I2C_DEVICES_SHT4 is not set
+# CONFIG_I2C_DEVICES_ZS05 is not set
+# end of Temperature sensors
+
+#
+# Eeproms
+#
+# CONFIG_I2C_DEVICES_EEPROM_24LC16 is not set
+# CONFIG_I2C_DEVICES_EEPROM_24LC1025 is not set
+# CONFIG_I2C_DEVICES_EEPROM_24AA32 is not set
+# end of Eeproms
+
+#
+# Real time clocks
+#
+# CONFIG_I2C_DEVICES_STRUCT_TM_CONVERSION is not set
+# CONFIG_I2C_DEVICES_RTC_PCF8523 is not set
+# CONFIG_I2C_DEVICES_RTC_PCF85063A is not set
+# CONFIG_I2C_DEVICES_RTC_M41T81 is not set
+# CONFIG_I2C_DEVICES_RTC_DS1307 is not set
+# CONFIG_I2C_DEVICES_RTC_RX8010 is not set
+# end of Real time clocks
+
+# CONFIG_I2C_DEVICES_MCP4018 is not set
+
+#
+# IO expanders
+#
+# CONFIG_I2C_DEVICES_MCP23008 is not set
+CONFIG_I2C_DEVICES_TCA9534=y
+# end of IO expanders
+
+#
+# Proximity and Ambient Light Sensors
+#
+# CONFIG_I2C_DEVICES_LTR559ALS is not set
+# CONFIG_I2C_DEVICES_VCNL4010 is not set
+# end of Proximity and Ambient Light Sensors
+
+#
+# Ports
+#
+# CONFIG_I2C_DEVICES_PIC_BITBANG_PORT is not set
+CONFIG_I2C_DEVICES_ESP_IDF_PORT=y
+# end of Ports
+# end of I2C library
+
+#
 # GEL
 #
 CONFIG_GEL_COLLECTIONS=y
 # CONFIG_GEL_CRC_ALGORITHMS is not set
-# CONFIG_GEL_DEBOUNCE is not set
+CONFIG_GEL_DEBOUNCE=y
 # CONFIG_GEL_KEYPAD is not set
 CONFIG_GEL_PAGE_MANAGER=y
 CONFIG_GEL_PAGEMANAGER_CONFIGURATION_HEADER="gel_pman_conf.h"
