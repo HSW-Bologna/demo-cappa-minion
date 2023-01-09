@@ -7,4 +7,5 @@ add_definitions(-DLV_VER_RES_MAX=320)
 add_definitions(-DSPI_HOST_MAX=SPI3_HOST)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
-project(esp32-template-ui)
+project(cappa-oleari-minion)
+target_add_binary_data(cappa-oleari-minion.elf "webapp/index.html.gzip" TEXT)

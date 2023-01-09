@@ -8,7 +8,9 @@
 #include "peripherals/digout.h"
 #include <liblightmodbus-esp/repo/include/lightmodbus/lightmodbus.h>
 #include <liblightmodbus-esp/repo/include/lightmodbus/slave.h>
+#include "network/network.h"
 #include <string.h>
+#include "config/app_config.h"
 
 #define TAG "RS485_ECHO_APP"
 
@@ -41,16 +43,21 @@
 // state on receive pin
 #define ECHO_READ_TOUT (3)     // 3.5T * 8 = 28 ticks, TOUT=3 -> ~24..33 ticks
 
-#define HOLDING_REGISTER_FAN_1   0
-#define HOLDING_REGISTER_FAN_2   1
-#define HOLDING_REGISTER_LIGHT_1 2
-#define HOLDING_REGISTER_LIGHT_2 3
-#define HOLDING_REGISTER_LIGHT_3 4
-#define REG_COUNT                5
+#define HOLDING_REGISTER_FAN_1              0
+#define HOLDING_REGISTER_FAN_2              1
+#define HOLDING_REGISTER_LIGHT_1            2
+#define HOLDING_REGISTER_LIGHT_2            3
+#define HOLDING_REGISTER_LIGHT_3            4
+#define HOLDING_REGISTER_FIRMWARE_VERSION_1 5
+#define HOLDING_REGISTER_FIRMWARE_VERSION_2 6
+#define HOLDING_REGISTER_FIRMWARE_UPDATE    7
+#define REG_COUNT                           8
 
 
 static ModbusSlave slave;
-static const int   uart_num = ECHO_UART_PORT;
+static const int   uart_num       = ECHO_UART_PORT;
+static uint8_t     minion_address = 0;
+static uint8_t     activate_ap    = 0;
 
 
 bool printErrorInfo(ModbusErrorInfo err) {
@@ -65,6 +72,7 @@ bool printErrorInfo(ModbusErrorInfo err) {
 
 
 void serial_init(uint8_t address) {
+    minion_address           = address;
     gpio_config_t gpioconfig = {BIT64(4), GPIO_MODE_OUTPUT, GPIO_PULLUP_DISABLE, GPIO_PULLDOWN_DISABLE,
                                 GPIO_PIN_INTR_DISABLE};
     gpio_config(&gpioconfig);
@@ -147,6 +155,7 @@ void parseRequest(uint8_t *data, int length, uint8_t address) {
         echo_send(ECHO_UART_PORT, (const char *)modbusSlaveGetResponse(&slave), modbusSlaveGetResponseLength(&slave));
     } else {
         printErrorInfo(err);
+        ESP_LOGW(TAG, "Len %i", length);
     }
 }
 
@@ -164,6 +173,15 @@ ModbusError myRegisterCallback(const ModbusSlave *status, const ModbusRegisterCa
         case MODBUS_REGQ_R:
             switch (args->type) {
                 case MODBUS_HOLDING_REGISTER:
+                    switch (args->index) {
+                        case HOLDING_REGISTER_FIRMWARE_VERSION_1:
+                            result->value =
+                                (APP_CONFIG_FIRMWARE_VERSION_MAJOR << 8) | APP_CONFIG_FIRMWARE_VERSION_MINOR;
+                            break;
+                        case HOLDING_REGISTER_FIRMWARE_VERSION_2:
+                            result->value = APP_CONFIG_FIRMWARE_VERSION_PATCH;
+                            break;
+                    }
                     break;
                 case MODBUS_INPUT_REGISTER:
                     break;
@@ -194,6 +212,12 @@ ModbusError myRegisterCallback(const ModbusSlave *status, const ModbusRegisterCa
 
                         case HOLDING_REGISTER_LIGHT_3:
                             digout_update(DIGOUT_RISCALDAMENTO_FERRO_2, args->value > 0);
+                            break;
+
+                        case HOLDING_REGISTER_FIRMWARE_UPDATE:
+                            if (args->value > 0) {
+                                activate_ap = 1;
+                            }
                             break;
                     }
                     break;
@@ -235,6 +259,11 @@ void echo_task_minion(void *arg) {
         // Write data back to UART
         if (len > 0) {
             parseRequest(data, len, address);
+        }
+
+        if (activate_ap) {
+            network_start_ap(minion_address);
+            activate_ap = 0;
         }
     }
     vTaskDelete(NULL);

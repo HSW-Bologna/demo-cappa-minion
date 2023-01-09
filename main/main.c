@@ -17,6 +17,7 @@
 #include "peripherals/serial.h"
 #include "peripherals/digin.h"
 #include "peripherals/digout.h"
+#include "peripherals/storage.h"
 #include "sdkconfig.h"
 #include "view/view.h"
 #include "i2c_ports/esp-idf/esp_idf_i2c_port.h"
@@ -34,6 +35,7 @@ void app_main(void) {
 
     phase_cut_init();
     lvgl_i2c_init(I2C_NUM_0);
+    storage_init();
     // lvgl_driver_init();
     digin_init();
     digout_init();
